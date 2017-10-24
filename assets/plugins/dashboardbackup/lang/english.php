@@ -27,3 +27,4 @@ $_lang['backup_filesize'] = 'File size';
 $_lang['backup_filedate'] = 'Date';
 $_lang['backup_file_options'] = 'Options';
 $_lang['last_db_backup'] = 'Last DataBase Backup';
+$_lang['last_zip_backup'] = 'Last Files Backup';
