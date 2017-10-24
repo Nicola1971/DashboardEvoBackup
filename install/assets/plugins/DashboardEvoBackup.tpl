@@ -85,7 +85,7 @@ $zfilepath = "{$zpath}/{$zentry}";
 }//end while going over files in dir.
 $zfiletime =  date("Y-m-d-Hi", fileatime($zfilepath));
 if (filectime($zfilepath) < ( time() - ( $days * 24 * 60 * 60 ) ) ) {
-$zmsg = '<span class=\"text-danger pull-right\"><i class=\"fa fa-exclamation-triangle\"></i> This backup is older than $days day(s)</span>';
+$zmsg = '<span class="text-danger pull-right"><i class="fa fa-exclamation-triangle"></i> '. $_lang["backup_outdated_msg"].' ' . $days.' '. $_lang["backup_outdated_days"].'</span>';
 }
 }
 
