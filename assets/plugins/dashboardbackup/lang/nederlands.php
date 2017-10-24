@@ -26,3 +26,5 @@ $_lang['backup_filename'] = 'Bestandsnaam';
 $_lang['backup_filesize'] = 'Bestandsgrootte';
 $_lang['backup_filedate'] = 'Datum';
 $_lang['backup_file_options'] = 'Opties';
+$_lang['last_db_backup'] = 'Last DataBase Backup';
+$_lang['last_zip_backup'] = 'Last  Files Backup';

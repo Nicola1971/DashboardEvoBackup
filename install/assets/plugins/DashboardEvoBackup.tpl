@@ -1,7 +1,7 @@
 /**
  * DashboardEvoBackup
  *
- * Dashboard EvoBackup widget for Evolution CMS
+ * Dashboard Evo Backup check widget for Evolution CMS
  * @author    Nicola Lambathakis
  * @category    plugin
  * @version    1.2 beta
@@ -14,7 +14,7 @@
  * @reportissues 
  * @link        
  * @lastupdate  23/10/2017
- * @internal    @properties &wdgVisibility=Show widget for:;menu;All,AdminOnly,AdminExcluded,ThisRoleOnly,ThisUserOnly;All &ThisRole=Run only for this role:;string;;;(role id) &ThisUser=Run only for this user:;string;;;(username) &wdgTitle= Widget Title:;string;Evo Backup  &wdgicon= widget icon:;string;fa-download  &wdgposition=widget position:;list;1,2,3,4,5,6,7,8,9,10;1 &wdgsizex=widget width:;list;12,6,4,3;12  &showArchiveBkp=Show Archive Backup:;menu;yes,no;yes &ArchiveBackup= Archive Backup dir;;_evobackup_archives;(evobackup folder) &DaysAlert= Alert when backups are older than (days);;7;(days)
+ * @internal    @properties &wdgVisibility=Show widget for:;menu;All,AdminOnly,AdminExcluded,ThisRoleOnly,ThisUserOnly;All &ThisRole=Run only for this role:;string;;;(role id) &ThisUser=Run only for this user:;string;;;(username) &wdgTitle= Widget Title:;string;Evo Backup Check  &wdgicon= widget icon:;string;fa-download  &wdgposition=widget position:;list;1,2,3,4,5,6,7,8,9,10;1 &wdgsizex=widget width:;list;12,6,4,3;12  &showArchiveBkp=Show Archive Backup:;menu;yes,no;yes &ArchiveBackup= Archive Backup dir;;_evobackup_archives;(evobackup folder) &DaysAlert= Alert when backups are older than (days);;7;(days)
  */
 // get manager role
 $internalKey = $modx->getLoginUserID();
@@ -91,7 +91,7 @@ $zmsg = '<span class=\"text-danger pull-right\"><i class=\"fa fa-exclamation-tri
 
 if ($showArchiveBkp == 'yes'){
 $ArchiveBkp ="<tr>
-<td><i class=\"fa fa-download text-muted\"></i> <b>Last Files backup</b>: $zlatest_filename</td><td>$zfiletime  $zmsg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download_backup']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/plugins/dashboardbackup/download.php?filename=$zlatest_filename\"><i class=\"fa fa-download\"></i></a></td>
+<td><i class=\"fa fa-download text-muted\"></i> <b>".$_lang['last_zip_backup']."</b>: $zlatest_filename</td><td>$zfiletime  $zmsg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download_backup']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/plugins/dashboardbackup/download.php?filename=$zlatest_filename\"><i class=\"fa fa-download\"></i></a></td>
 </tr>";
 }
 else {
@@ -111,7 +111,7 @@ $wdgout = "
 </thead>
 <tbody>
 	<tr>
-<td><i class=\"fa fa-database text-muted\"></i> <b>Last DataBase backup</b>: $latest_filename</td><td>$filetime  $msg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/plugins/dashboardbackup/downloadsql.php?filename=$latest_filename\"><i class=\"fa fa-download\"></i></a></td>
+<td><i class=\"fa fa-database text-muted\"></i> <b>".$_lang['last_db_backup']."</b>: $latest_filename</td><td>$filetime  $msg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/plugins/dashboardbackup/downloadsql.php?filename=$latest_filename\"><i class=\"fa fa-download\"></i></a></td>
 </tr>
 $ArchiveBkp
 </tbody>
