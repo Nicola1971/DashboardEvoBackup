@@ -4,7 +4,7 @@
  * Dashboard EvoBackup widget for Evolution CMS
  * @author    Nicola Lambathakis
  * @category    plugin
- * @version    1 beta
+ * @version    1.2 beta
  * @license	   http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal    @events OnManagerWelcomeHome
  * @internal    @installset base
@@ -31,7 +31,7 @@ else if(($role!=$ThisRole) AND ($wdgVisibility == 'ThisRoleOnly')) {}
 else if(($user!=$ThisUser) AND ($wdgVisibility == 'ThisUserOnly')) {}
 else {
 // get language
-global $modx,$_lang;
+global $modx;
 // get plugin id
 $result = $modx->db->select('id', $this->getFullTableName("site_plugins"), "name='{$modx->event->activePlugin}' AND disabled=0");
 $pluginid = $modx->db->getValue($result);
@@ -39,6 +39,13 @@ if($modx->hasPermission('edit_plugin')) {
 $button_pl_config = '<a data-toggle="tooltip" href="javascript:;" title="' . $_lang["settings_config"] . '" class="text-muted pull-right" onclick="parent.modx.popup({url:\''. MODX_MANAGER_URL.'?a=102&id='.$pluginid.'&tab=1\',title1:\'' . $_lang["settings_config"] . '\',icon:\'fa-cog\',iframe:\'iframe\',selector2:\'#tabConfig\',position:\'center center\',width:\'80%\',height:\'80%\',wrap:\'evo-tab-page-home\',hide:0,hover:0,overlay:1,overlayclose:1})" ><i class="fa fa-cog"></i> </a>';
 }
 $modx->setPlaceholder('button_pl_config', $button_pl_config);
+//lang
+$_lang = array();
+$plugin_path = $modx->config['base_path'] . "assets/plugins/dashboardbackup/";
+include($plugin_path.'lang/english.php');
+if (file_exists($plugin_path.'lang/' . $modx->config['manager_language'] . '.php')) {
+    include($plugin_path.'lang/' . $modx->config['manager_language'] . '.php');
+}
 //days
 $days = $DaysAlert; 
 $now = new \DateTime();
@@ -58,7 +65,7 @@ $filepath = "{$path}/{$entry}";
 }//end while going over files in dir.
 $filetime =  date("Y-m-d-Hi", filectime($filepath));
 if (filectime($filepath) < ( time() - ( $days * 24 * 60 * 60 ) ) ) {
-$msg = "<span class=\"text-danger pull-right\"><i class=\"fa fa-exclamation-triangle\"></i> This backup is older than $days day(s)</span>";
+$msg = '<span class="text-danger pull-right"><i class="fa fa-exclamation-triangle"></i> '. $_lang["backup_outdated_msg"].' ' . $days.' '. $_lang["backup_outdated_days"].'</span>';
 }
 }
 //get latest archives backup
@@ -78,33 +85,33 @@ $zfilepath = "{$zpath}/{$zentry}";
 }//end while going over files in dir.
 $zfiletime =  date("Y-m-d-Hi", fileatime($zfilepath));
 if (filectime($zfilepath) < ( time() - ( $days * 24 * 60 * 60 ) ) ) {
-$zmsg = "<span class=\"text-danger pull-right\"><i class=\"fa fa-exclamation-triangle\"></i> This backup is older than $days day(s)</span>";
+$zmsg = '<span class=\"text-danger pull-right\"><i class=\"fa fa-exclamation-triangle\"></i> This backup is older than $days day(s)</span>';
 }
 }
 
 if ($showArchiveBkp == 'yes'){
 $ArchiveBkp ="<tr>
-<td><i class=\"fa fa-download text-muted\"></i> <b>Last Files backup</b>: $zlatest_filename</td><td>$zfiletime  $zmsg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download_backup']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/modules/evobackup/download.php?filename=$zlatest_filename\"><i class=\"fa fa-download\"></i></a></td>
+<td><i class=\"fa fa-download text-muted\"></i> <b>Last Files backup</b>: $zlatest_filename</td><td>$zfiletime  $zmsg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download_backup']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/plugins/dashboardbackup/download.php?filename=$zlatest_filename\"><i class=\"fa fa-download\"></i></a></td>
 </tr>";
 }
-	else {
+else {
 $ArchiveBkp == '';
 	}
-		//end if showArchiveBkp
+//end if showArchiveBkp
 	
 $wdgout = "
 <div class=\"table-responsive\">
 <table class=\"table data\">
 <thead>
 <tr>
-<th><b>".$_lang['files_filename']."</b></th>
-<th><b>".$_lang['date']."</b></th>
+<th><b>".$_lang['backup_filename']."</b></th>
+<th><b>".$_lang['backup_filedate']."</b></th>
 <th style=\"text-align:right;\"><b>".$_lang['download']."</b></th>
 </tr>
 </thead>
 <tbody>
 	<tr>
-<td><i class=\"fa fa-database text-muted\"></i> <b>Last DataBase backup</b>: $latest_filename</td><td>$filetime  $msg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/modules/evobackup/downloadsql.php?filename=$latest_filename\"><i class=\"fa fa-download\"></i></a></td>
+<td><i class=\"fa fa-database text-muted\"></i> <b>Last DataBase backup</b>: $latest_filename</td><td>$filetime  $msg</td><td style=\"text-align: right;\" class=\"actions\"><a title=\"".$_lang['download']."\" target=\"_blank\" href=\"".$modx->config['site_url']."assets/plugins/dashboardbackup/downloadsql.php?filename=$latest_filename\"><i class=\"fa fa-download\"></i></a></td>
 </tr>
 $ArchiveBkp
 </tbody>
